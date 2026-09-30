@@ -1,0 +1,17 @@
+{
+  "name": "what-else",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mts\"",
+    "typecheck": "tsc",
+    "smoke": "node scripts/smoke.mts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2"
+  }
+}
