@@ -15,6 +15,8 @@ Write them about kinds of changes, so they hold for changes nobody has made yet.
 
 Link the rules from the project instructions the harness always loads, with one line asking the agent to check the places the rules point to before it finishes a change.
 
+Write the rules, and anything else you add to the project's instructions, as what to do. Keep prohibitions for a mistake agents keep repeating in this project, or for something that must never happen, such as sending secrets out.
+
 - **Measured:** the full rules in the always-loaded instructions, plus that one line. This is what cut misses in the experiments (see the method cards).
 - **Not measured yet:** only a pointer and the kinds of change the rules cover in the always-loaded instructions, with the full rules in a separate file. This keeps ordinary sessions lighter when the rules are long; verify it before relying on it.
 
