@@ -1,6 +1,6 @@
 # Diagnosis
 
-The diagnosis answers three questions about this repository, from its own history and structure:
+The diagnosis answers three questions about the project, from its own history and structure:
 
 1. Do changes here miss places at all?
 2. Which kinds of places get missed?
@@ -42,5 +42,5 @@ Miss events also serve twice more: they point to the rules to write ([rules.md](
 | Misses are mostly convention files | Repository rules with a checklist line |
 | Misses share names with the change, and the agent did not look there | Rules and the scope method as a checklist |
 | Misses share words, but not exact names, with the change | Lexical ranking |
-| Misses share no words with the change | A ranked search that ranks by meaning, such as Jev or semantic search, verified on this repository |
+| Misses share no words with the change | A ranked search that ranks by meaning, such as Jev or semantic search, verified on the project |
 | The repository is too large for the main agent to search without filling its context | Delegating the search to a small model |

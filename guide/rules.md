@@ -1,6 +1,6 @@
 # Repository rules
 
-Repository rules say what this repository changes together. They carry knowledge the code does not show and a stronger model does not bring: this repository's own conventions.
+Repository rules say what the project changes together. They carry knowledge the code does not show and a stronger model does not bring: the project's own conventions.
 
 ## What the rules answer
 

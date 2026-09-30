@@ -1,6 +1,6 @@
 # 변경 범위 찾기 방법론 (초안)
 
-> **최신 상태 (2026-09-30):** 이 문서는 이전 단계의 기록이에요. 이 레포는 이제 실험 기록과, 그 기록으로 프로젝트에 맞는 구성을 사용자와 합의해 만드는 안내예요 ([방향](../direction.md)). 실험 색인은 [records/README.md](README.md), 현재 skill은 `skill/what-else-setup/`, 이 문서가 가리키던 v0.7 스펙은 [spec-v0.7/](spec-v0.7/SKILL.md)에 보관돼 있어요.
+> **최신 상태 (2026-09-30):** 이 문서는 이전 단계의 기록이다. 이 레포는 이제 실험 기록과, 그 기록으로 프로젝트에 맞는 구성을 사용자와 합의해 만드는 안내다 ([방향](../direction.md)). 실험 색인은 [records/README.md](README.md), 현재 안내는 [INSTALL.md](../../INSTALL.md)와 [guide/](../../guide/), 이 문서가 가리키던 v0.7 스펙은 [spec-v0.7/](spec-v0.7/SKILL.md)에 있다.
 
 
 - 작성일: 2026-09-28

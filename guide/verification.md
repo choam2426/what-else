@@ -1,6 +1,6 @@
-# Verifying a setup on this repository
+# Verifying a setup on the project
 
-Verification shows the user, with this repository's own changes, what the setup finds that the plain agent misses and what it costs. The recorded experiments suggest where to start; this repository's numbers decide.
+Verification shows the user, with the project's own changes, what the setup finds that the plain agent misses and what it costs. The recorded experiments suggest where to start; the project's numbers decide.
 
 ## Test cases
 

@@ -1,8 +1,8 @@
 # Method cards
 
-What earlier experiments found about each approach. Use them to build the proposal, and compare the conditions each result was measured in with the repository at hand before leaning on it.
+What earlier experiments found about each approach. Use them to build the proposal, and compare the conditions each result was measured in with the project at hand before leaning on it.
 
-**Conditions of every result below, unless a card says otherwise:** Claude Code on Windows, main model Sonnet 5 (worker Haiku 4.5), 2026-09-28 to 09-30. A result from one harness, one model generation and a handful of repositories is a starting point for this repository's own verification, not a verdict.
+**Conditions of every result below, unless a card says otherwise:** Claude Code on Windows, main model Sonnet 5 (worker Haiku 4.5), 2026-09-28 to 09-30. A result from one harness, one model generation and a handful of repositories is a starting point for the project's own verification, not a verdict.
 
 **Evidence strength:** *strong* means consistent across several repositories and repeated runs; *moderate* means repeated runs in one repository, or single runs agreeing across several; *weak* means one run in one repository, or a difference within run-to-run variance; *not measured* means nobody has tried it yet.
 
@@ -19,7 +19,7 @@ Each card carries the conditions needed to judge it. The full experiment records
 
 ## Repository rules with a checklist line
 
-- **What:** rules about what this repository changes together ([rules.md](rules.md)), in the always-loaded instructions, plus one line asking the agent to check the places they point to before finishing. No other tools.
+- **What:** rules about what the project changes together ([rules.md](rules.md)), in the always-loaded instructions, plus one line asking the agent to check the places they point to before finishing. No other tools.
 - **Helped when:** conventions are strong and regular.
   - Django, 12 held-out changes described by their original tickets, rules written before any tuning: real misses 7 → 3, changes with no real miss 6/12 → 10/12.
   - Dev set, 10 changes (Django 6, pydantic 4): real misses 20 → 5. The requests there were commit messages and the rules had been tuned on the dev set, so this number is likely inflated.

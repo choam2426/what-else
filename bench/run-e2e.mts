@@ -1,12 +1,12 @@
-// End-to-end test of the setup skill (skill/what-else-setup; up to v0.7 it was skill/jevgrep-setup,
-// archived in docs/records/spec-v0.7): an agent sets up change-scope finding in a repository
-// from the skill alone, and the implementation it produces is then installed into each case and
+// End-to-end test of the setup guide (INSTALL.md and guide/; up to v0.7 it was the skill
+// skill/jevgrep-setup, archived in docs/records/spec-v0.7): an agent sets up change-scope finding in
+// a repository from the guide alone, and the implementation it produces is then installed into each case and
 // measured with the plain task (run-agent.mts arm E).
 //
 // Usage:
 //   node bench/run-e2e.mts setup <setup-repo> <message> [--model sonnet] [--effort medium]
-//     One turn of the setup conversation. The first turn puts the spec into
-//     <setup-repo>/.claude/skills/what-else-setup and starts a session; later turns continue it.
+//     One turn of the setup conversation. The first turn copies INSTALL.md and guide/ into
+//     <setup-repo>/.what-else (the setup agent cannot reach GitHub) and starts a session; later turns continue it.
 //     Each turn is logged to <setup-repo>/../setup.turns.jsonl and setup.events.jsonl.
 //   node bench/run-e2e.mts record <setup-repo>
 //     Records what the agent produced (<setup-repo>/../implementation.json).
@@ -21,7 +21,7 @@ import { randomUUID } from "node:crypto";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const SPEC_DIR = ".claude/skills/what-else-setup";
+const SPEC_DIR = ".what-else";
 const [command, ...rest] = process.argv.slice(2);
 const opt = (name: string) => {
   const i = process.argv.indexOf(`--${name}`);
@@ -39,9 +39,8 @@ function setup(repo: string, message: string) {
   const sessionFile = join(out, "setup.session");
   const first = !existsSync(sessionFile);
   if (first) {
-    const spec = fileURLToPath(new URL("../skill/what-else-setup", import.meta.url));
     rmSync(join(repo, SPEC_DIR), { recursive: true, force: true });
-    cpSync(spec, join(repo, SPEC_DIR), { recursive: true });
+    for (const p of ["INSTALL.md", "guide"]) cpSync(fileURLToPath(new URL("../" + p, import.meta.url)), join(repo, SPEC_DIR, p), { recursive: true });
     writeFileSync(sessionFile, randomUUID());
   }
   const session = readFileSync(sessionFile, "utf8").trim();

@@ -20,7 +20,7 @@ List each contract the change touches. For example:
 - **B. Parallels.** Code that does the same thing and must stay consistent: other parts of the same file, other implementations of the same interface (backends, drivers, platforms), and siblings with the same role, including siblings the request does not name.
 - **C. Same decision, other path.** The same rule applied from another entry point: sync and async, single and bulk, create and update, server and client, one validation layer and another.
 - **D. Boundaries.** Serializers, schemas, type declarations, API specs, migrations, setting defaults, CLI flags, environment variables.
-- **E. Repository conventions.** Files this repository updates for this kind of change: release notes or changelog, reference docs, deprecation notes, version or support tables. Start from the conventions in the repository rules, and turn to history for kinds of change the rules leave out.
+- **E. Repository conventions.** Files the project updates for this kind of change: release notes or changelog, reference docs, deprecation notes, version or support tables. Start from the conventions in the repository rules, and turn to history for kinds of change the rules leave out.
 - **F. Tests.** Existing tests whose expectations change. New tests are optional.
 - **G. No longer needed.** Workarounds, compatibility branches, and comments that the change makes obsolete. These are optional.
 
