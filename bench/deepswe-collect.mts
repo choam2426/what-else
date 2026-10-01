@@ -17,7 +17,7 @@ const jsonOut = process.argv.includes("--json") ? process.argv[process.argv.inde
 
 type Trial = {
   task: string; trial: string; model: string; agentVersion: string;
-  reward: number | null; f2p: number | null; p2p: number | null; exception?: string;
+  reward: number | null; f2p: number | null; p2p: number | null; partial: number | null; exception?: string;
   costUsd: number | null; agentSeconds: number | null; turns: number | null;
   refFiles: string[]; agentFiles: string[]; missedRefFiles: string[];
 };
@@ -38,7 +38,7 @@ for (const job of dirs(jobsDir)) {
     };
     const task = r.task_name.replace(/^datacurve\//, "");
     const reward = read(join(dir, "verifier", "reward.json"));
-    const scores = reward ? (JSON.parse(reward) as { reward: number; f2p: number; p2p: number }) : null;
+    const scores = reward ? (JSON.parse(reward) as { reward: number; f2p: number; p2p: number; partial: number }) : null;
     // The last "result" event of Claude Code's stream-json output carries cost, turns and duration.
     const final = read(join(dir, "agent", "claude-code.txt")).split("\n").filter((l) => l.includes('"type":"result"')).pop();
     const f = final ? (JSON.parse(final) as { total_cost_usd?: number; num_turns?: number; duration_ms?: number }) : {};
@@ -46,7 +46,7 @@ for (const job of dirs(jobsDir)) {
     const agentFiles = patchFiles(read(join(dir, "artifacts", "model.patch")));
     trials.push({
       task, trial: name, model: r.agent_info?.model_info?.name ?? "", agentVersion: r.agent_info?.version ?? "",
-      reward: scores?.reward ?? null, f2p: scores?.f2p ?? null, p2p: scores?.p2p ?? null,
+      reward: scores?.reward ?? null, f2p: scores?.f2p ?? null, p2p: scores?.p2p ?? null, partial: scores?.partial ?? null,
       ...(r.exception_info?.exception_type ? { exception: r.exception_info.exception_type } : {}),
       costUsd: f.total_cost_usd ?? null, agentSeconds: f.duration_ms != null ? Math.round(f.duration_ms / 1000) : null, turns: f.num_turns ?? null,
       refFiles, agentFiles, missedRefFiles: refFiles.filter((p) => !agentFiles.includes(p)),

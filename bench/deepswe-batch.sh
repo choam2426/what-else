@@ -5,7 +5,9 @@
 # Usage: bench/deepswe-batch.sh <bench-dir> <from> <to> [job-name]
 #   <bench-dir> holds deep-swe/ (cloned with core.autocrlf=false) and order-seed0.txt.
 #   TASKS_FILE (relative to <bench-dir>) picks the task list instead of order-seed0.txt, for example
-#   hard-set.txt; JOB sets the job name when no job-name argument is given.
+#   hard-set.txt; JOB sets the job name when no job-name argument is given. TASKS_DIR (relative to
+#   <bench-dir>, default deep-swe/tasks) picks the task folder, and PIER_EXTRA adds pier options, for
+#   example --disable-verification for the what-else setup tasks.
 # Reads CLAUDE_CODE_OAUTH_TOKEN from the environment, or from the Windows user environment.
 set -euo pipefail
 bench=$1 from=$2 to=$3 job=${4:-${JOB:-baseline-sonnet55}} list=${TASKS_FILE:-order-seed0.txt}
@@ -18,7 +20,8 @@ fi
 
 cd "$bench"
 include=()
-while read -r task; do include+=(-i "*$task"); done < <(sed -n "${from},${to}p" "$list")
+while read -r task || [ -n "$task" ]; do include+=(-i "*$task"); done < <(sed -n "${from},${to}p" "$list")
 echo "batch $from-$to of $list: $((${#include[@]} / 2)) tasks, job $job"
-PYTHONIOENCODING=utf-8 pier run -p deep-swe/tasks "${include[@]}" -n "$concurrent" \
+# shellcheck disable=SC2086
+PYTHONIOENCODING=utf-8 pier run -p "${TASKS_DIR:-deep-swe/tasks}" "${include[@]}" ${PIER_EXTRA:-} -n "$concurrent" \
   --agent claude-code --model "$model" --ak version="$version" -o "jobs/$job"
