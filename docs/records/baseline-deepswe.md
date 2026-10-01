@@ -1,7 +1,7 @@
 # Baseline: 순정 Claude Code on DeepSWE
 
 - 시작: 2026-09-30
-- 상태: 선별 완료 (2026-09-30). 다음은 어려운 과제 집합의 순정 재실행
+- 상태: 선별과 순정 재실행 완료 (2026-10-01). 다음은 what-else 적용
 - 목적: 공개 벤치에서 순정 에이전트가 변경을 얼마나 완성하는지, 무엇을 놓치는지 재고, 그 위에서 what-else 같은 방법이 실패를 줄이는지 본다.
 
 ## 설계 (2026-09-30 합의)
@@ -35,7 +35,7 @@
 | 인증 | 구독 OAuth 토큰. 비용은 Claude Code가 보고한 정가 환산값 |
 | 과제 순서 | 과제 이름 정렬 후 `random.Random(0).shuffle` (`order-seed0.txt`). 배치는 이 순서대로 10개씩 |
 | 동시 실행 | 배치 1은 2, 배치 2부터 10 (컨테이너당 상한 CPU 2, RAM 8GB. 실제 사용은 1GB 안팎) |
-| 반복 | 선별 1회. 어려운 과제 집합에서만 2회 더 (설계 2) |
+| 반복 | 선별 1회. 실패한 48개만 순정 1회 더 (설계 2를 1회로 줄임, 2026-10-01 합의) |
 
 도구: `bench/deepswe-batch.sh` (배치 실행), `bench/deepswe-collect.mts` (수치 수집).
 
@@ -123,3 +123,17 @@
 - 구독 세션 한도에 걸리면 Claude Code가 429("You've hit your session limit")로 끝나고 Pier는 `NonZeroAgentExitCodeError`로 기록한다. 배치 9 첫 시도 10개가 5~11턴 만에 모두 이렇게 끝났다. 모델 실패로 세지 않고 `jobs/_infra-failed/usage-limit/`로 옮겨 한도가 풀린 뒤 다시 돌린다.
 - Pier를 부른 셸이 제한 시간에 끊기면 Pier는 살아남지만, 그 뒤 Pier가 띄우는 docker.exe가 0xC0000142(콘솔 초기화 실패)로 죽는다. 에이전트가 끝낸 작업도 패치 수집에서 잃는다. 배치는 `bench/deepswe-batch-detached.ps1`로 셸과 분리해 띄운다. 같은 초에 두 배치를 띄우면 작업 폴더 이름이 겹쳐 하나가 실패한다.
 - Pier 0.3.1은 Windows에서 egress 프록시 스크립트와 Dockerfile을 `write_text`로 써서 CRLF가 되고, 프록시가 뜨지 않는다. 설치된 `pier/environments/agent_setup.py`의 `write_text` 4곳에 `newline="\n"`을 주어 고쳤다 (원본은 `.orig`).
+
+### 순정 재실행 (선별 실패 48개 × 1회)
+
+| 항목 | 값 |
+| --- | --- |
+| 다시 돌려 통과 | 19/48 (40%) |
+| 두 번 모두 실패 | 29개, 레포 26개 (`what-else-bench/hard-core.txt`) |
+| 그중 두 번 모두 f2p 0.9 이상 | 23개 |
+| 비용 | 합계 $24.98, 평균 $0.52 |
+| 무결성 점검 | 2건, 모두 목록 조회 `git branch -a; git remote -v` |
+
+선별에서 한 번 실패한 과제의 40%는 순정을 다시 돌리기만 해도 통과했다. 선별 실행과 비교했다면 이 몫이 방법의 효과로 보였을 것이다. 방법의 효과는 이 재실행(19/48)과 비교한다. 실행별 수치는 `what-else-bench/rerun.json`.
+
+두 번 모두 실패한 29개는 대부분 매번 기능의 일부만 빠뜨린다(23개가 두 번 다 f2p 0.9 이상). 방법이 효과를 내야 할 곳이 여기다.

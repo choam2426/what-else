@@ -4,9 +4,11 @@
 #
 # Usage: bench/deepswe-batch.sh <bench-dir> <from> <to> [job-name]
 #   <bench-dir> holds deep-swe/ (cloned with core.autocrlf=false) and order-seed0.txt.
+#   TASKS_FILE (relative to <bench-dir>) picks the task list instead of order-seed0.txt, for example
+#   hard-set.txt; JOB sets the job name when no job-name argument is given.
 # Reads CLAUDE_CODE_OAUTH_TOKEN from the environment, or from the Windows user environment.
 set -euo pipefail
-bench=$1 from=$2 to=$3 job=${4:-baseline-sonnet55}
+bench=$1 from=$2 to=$3 job=${4:-${JOB:-baseline-sonnet55}} list=${TASKS_FILE:-order-seed0.txt}
 model=anthropic/claude-sonnet-5-5 version=2.1.285 concurrent=${CONCURRENT:-10}
 
 if [ -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
@@ -16,7 +18,7 @@ fi
 
 cd "$bench"
 include=()
-while read -r task; do include+=(-i "*$task"); done < <(sed -n "${from},${to}p" order-seed0.txt)
-echo "batch $from-$to: ${#include[@]} filters, job $job"
+while read -r task; do include+=(-i "*$task"); done < <(sed -n "${from},${to}p" "$list")
+echo "batch $from-$to of $list: $((${#include[@]} / 2)) tasks, job $job"
 PYTHONIOENCODING=utf-8 pier run -p deep-swe/tasks "${include[@]}" -n "$concurrent" \
   --agent claude-code --model "$model" --ak version="$version" -o "jobs/$job"
