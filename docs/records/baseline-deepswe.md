@@ -274,3 +274,21 @@ INSTALL.md를 바꿔 답할 사람이 없으면 고정 기본값 대신 자기 �
 | eicrud-keyset-pagination-cursor | 2/3 | OpenAPI `CrudOptions` 스키마 (확신도 낮음) |
 
 순정 기준: 이 14개에서 순정 실행 40회 중 범위 누락 34회(85%). kea, koota, gql 9회는 실패 원인 분류로, 나머지 31회는 범위 누락 판정으로 셌다. 앞으로 범위 찾기 방법은 이 집합에서 **범위 누락 여부**로 비교한다(같은 판정자, 같은 기준, 판정자는 어느 쪽 실행인지 모르게). 판정자 흔들림이 있으므로(예: httpx `__all__` 누락을 누락으로 보지 않음) 비교 때는 양쪽 실행을 같은 판정 묶음에서 판정한다.
+
+## 방법 1: what-else 레포 규칙, 범위 실험 집합 (2026-10-02)
+
+범위 실험 집합 14개 레포를 현재 가이드(v2)로 **새로 setup**했다(합계 약 $6.8, 모두 레포 규칙 선택, 검증한 setup 2개, numba setup이 또 `numba/__init__.py`를 고쳐 그 부분은 뺐다). 적용 과제 14개와, 집합을 고른 뒤 **새로 돌린 순정** 14개를 1회씩 돌렸다. 두 쪽 패치를 과제마다 A/B로 무작위 배정하고 지침·노트 파일을 뺀 블라인드 팩으로 만들어(`bench/deepswe-blind-pack.mts`), 이전 기록을 모르는 판정자 2명(Sonnet)이 같은 기준으로 판정했다.
+
+| 지표 | 순정 (새 실행) | what-else |
+| --- | --- | --- |
+| 범위 누락 | **8/14** | **4/14** |
+| what-else만 누락 없음 | | 4 (updo, boa, numba, eicrud) |
+| 순정만 누락 없음 | | 0 |
+| 둘 다 누락 | | 4 (textual, onedump, kombu-dead-lettering, claude-code-by-agents) |
+| 둘 다 없음 | | 6 |
+
+- **규칙이 놓친 곳을 직접 가리킨 경우에 고쳐졌다.** updo 규칙은 "`simple.Config`와 `tui.Config` 양쪽"을, numba 규칙은 "parallel(`numba/parfors/`) 변형"을, eicrud 규칙은 "server와 client", `cli/templates`를 적었다. boa는 해당 규칙이 없는데도 고쳐졌다(편차일 수 있다).
+- **규칙이 있어도 못 고친 경우**: onedump 규칙은 `storage.PathGenerator`를 공유 함수로 적었지만 두 쪽 다 놓쳤다. textual, kombu, claude-code-by-agents 규칙에는 놓친 곳(드라이버 플래그, fanout 경로, provider 도구 노출)이 없었다.
+- **판정자 차이**: 이전 판정에서 3/3 누락이던 kea, koota, python-statemachine이 이번 판정자에게는 두 쪽 모두 누락 없음(확신도 낮음~중간)이었다. 양쪽을 같은 판정자가 같은 기준으로 봤으므로 비교에는 영향이 없지만, 누락 판정이 판정자에 따라 흔들린다.
+
+**해석.** 순정 대비 범위 누락이 8 → 4로 줄었고, 엇갈린 4쌍이 모두 what-else 쪽이었다(부호 검정 단측 p ≈ 0.06). 방향은 분명하지만 14개 × 1회라 근거는 약하다. 한 번 더 양쪽을 돌려 확인할 가치가 있다. 비용: 순정 $0.5 안팎, what-else는 setup 포함 과제당 약 $1.2.
