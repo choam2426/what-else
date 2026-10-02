@@ -230,3 +230,17 @@ INSTALL.md를 바꿔 답할 사람이 없으면 고정 기본값 대신 자기 �
 **해석.** 순정 54회 중 통과 0회, what-else 36회 중 6회. 과제 2개(go-critic, tengo)에서는 효과가 반복해서 보인다. 다만 이 18개는 순정이 세 번 실패해서 고른 집합이라, 순정의 다음 실행 통과율이 0이라고 단정할 수 없다. 순정 4차를 돌려 확인해야 공정한 비교가 된다. v2로 바뀐 것(자기 추천안, 검증)은 결과를 바꾸지 못했다. setup이 고른 구성이 v1과 같았기 때문이다.
 
 **setup 쪽 발견.** "검증은 한다"고 적어도 대부분 건너뛴다. 검증한 4개는 규칙 유무로 누락 사건을 재실행했고, 규칙이 막은 누락(vulture `ast_whitelist.py`, dateutil changelog, csstree 문서)과 규칙이 부른 불필요한 수정(csstree)을 찾아 규칙을 고쳤다.
+
+## 실패 원인 분류: 범위 누락인가 (2026-10-02)
+
+이 레포가 다루는 것은 **범위 누락**(바뀌어야 할 곳을 건드리지 않음)뿐이다. 구현 오류(맞는 곳을 고쳤지만 동작이 틀림)는 범위 밖이다. 어려운 집합 18개의 순정 3회 실패를 서브에이전트 3개가 실패 테스트, 에이전트 패치, 참조 정답을 대조해 분류했다(에이전트 자신의 설계 기준).
+
+| 판정 | 과제 수 | 과제 |
+| --- | --- | --- |
+| 범위 누락이 주원인 (3회 중 2회 이상) | **3** | kea-atomic-signal-selectors (`src/kea/kea.ts` `proxyFields()`의 예약 키 목록에 새 필드 누락, 3/3), koota-deferred-mutation-buffer (`trait.ts` `removeTraitFromEntity`의 구독 처리 미수정, 3/3), gql-incremental-graphql-delivery (새 `execute_incremental`이 형제 메서드가 지키는 `parse_results` 옵션을 무시, 2/3, 경계 사례) |
+| 구현 오류 | 14 | go-critic, termenv, csstree, obsidian-auto-toc, ink, happy-dom, sqlfmt, optique, meriyah, tengo, bandit-nosec, obsidian-link-format, dateutil, mnamer |
+| 기타 | 1 | vulture (설정 기본값 순서를 바꿔 파라미터 테스트 ID가 바뀜. 동작은 맞음) |
+
+**결론.** DeepSWE의 어려운 과제는 대부분 범위 문제가 아니다. 그래서 DeepSWE 통과율은 범위 찾기 방법의 효과를 재는 지표로 맞지 않는다. what-else로 통과한 과제(go-critic, tengo, ink, mnamer)도 모두 구현 오류 과제였으므로, 그 통과는 범위를 더 찾아서가 아니라 다른 이유(규칙의 확인 줄이 부른 재검토, 또는 실행 편차)로 보인다.
+
+범위 누락 3개는 모두 "새 기능을 넣을 때 기존 구조의 다른 자리(프록시 목록, 공유 제거 경로, 형제 메서드의 공통 옵션)를 맞추지 않은" 경우다. 이 레포가 겨냥하는 유형 그대로다.
