@@ -19,7 +19,9 @@ Verification shows the user, with the project's own changes, what the setup find
 ## Cheap first
 
 - A **ranking check** asks only whether each missed place appears near the top of a ranked search's list. It costs little and compares search backends quickly.
-- A **full run** has the agent make the change with and without the setup. It measures what the user will get, and costs a model run per case. Agree with the user on how many; when nobody is available to agree, run the ranking check and a few full runs, and propose more in the report.
+- A **full run** has the agent make the change with and without the setup. It measures what the user will get, and costs a model run per case. Agree with the user on how many.
+
+When nobody is available to agree, verification still runs, on a small amount you state: the ranking check for any ranked search the setup includes, and full runs with and without the setup on a few cases, such as three miss events. Report the numbers, how far they can be trusted at that size, and how many more runs a decision would need.
 
 ## Reading the numbers
 

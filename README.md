@@ -44,7 +44,7 @@ https://github.com/choam2426/what-else 이거 보고 우리 프로젝트에 맞�
 
 | 경로 | 내용 |
 | --- | --- |
-| [`INSTALL.md`](INSTALL.md) | 에이전트가 처음 읽는 안내 (영어). 목표, 진행 과정, 기본값 |
+| [`INSTALL.md`](INSTALL.md) | 에이전트가 처음 읽는 안내 (영어). 목표, 진행 과정, 답할 사람이 없을 때의 진행 방식 |
 | [`guide/`](guide/) | INSTALL.md가 가리키는 참고 문서 (영어). 진단, 방법 카드, 레포 규칙, 범위 찾기 방법, 위임, 검증 |
 | [`docs/direction.md`](docs/direction.md) | 합의한 방향, 원칙, 앞으로 할 일 |
 | [`docs/records/`](docs/records/README.md) | 실험 기록 색인, 적용 범위 지도, 원문 |

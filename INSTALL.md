@@ -23,11 +23,11 @@ This file says what to do and why. How to build each part is yours to decide for
 2. **Diagnose** where changes in the project miss places, following [guide/diagnosis.md](guide/diagnosis.md). The diagnosis says whether the project has a missing-places problem at all, which kinds of places get missed, and how costly those misses are.
 3. **Propose a setup.** Read the method cards that fit the diagnosis, and compare the conditions each result was measured in with the project. Recommend one setup with the reasons for it. Name the alternatives you considered, including leaving things as they are, and say how you will verify the setup and what verifying costs.
 4. **Agree on it with the user.** Some decisions belong to the user: whether code may leave the machine, how much spending and waiting per change is acceptable, and which option to take. Put them to the user together, with your recommendation first.
-5. **Build** what was agreed.
+5. **Build** what was agreed: instructions, notes and tools for finding the scope of a change. Leave the project's own code, dependencies and build settings as they are; when something in the environment gets in the way of building or verifying, report it instead.
 6. **Verify it on the project**, following [guide/verification.md](guide/verification.md): show what the setup finds that the plain agent misses, and what it costs. Spend on paid services only as agreed.
 7. **Report** the diagnosis, the options considered, what was agreed, what was built, the verification numbers, your assumptions, and what you could not check. Write it so another person could learn from it, since it is also a record of one more project.
 
-When nobody is available to answer, take the default: repository rules placed in the always-loaded instructions (the measured form in [guide/rules.md](guide/rules.md)), built with local tools only, so no code leaves the machine. List the other options in the report as proposals.
+When nobody is available to answer, go ahead with your own recommendation. Two decisions still belong to the user, so take the cautious side of each: keep code on the machine, choosing a local alternative where your recommendation would send code to a service, and keep spending to a small amount you state in the report. Verify the setup within that amount, and report what you would change with the user's answers.
 
 ## Where to start the proposal
 
