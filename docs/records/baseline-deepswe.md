@@ -1,7 +1,7 @@
 # Baseline: 순정 Claude Code on DeepSWE
 
 - 시작: 2026-09-30
-- 상태: 1차 실험 완료 (2026-10-01). 순정 Claude Code baseline, what-else(레포 규칙) 적용 비교
+- 상태: 완료 (2026-10-02). 다음 방법들의 기준은 아래 "고정 baseline"
 - 목적: 공개 벤치에서 순정 에이전트가 변경을 얼마나 완성하는지, 무엇을 놓치는지 재고, 그 위에서 what-else 같은 방법이 실패를 줄이는지 본다.
 
 ## 설계 (2026-09-30 합의)
@@ -175,3 +175,36 @@
 **비용**: setup $9.33, what-else 실행 $32.46, 순정 3차 $16.71.
 
 **다음 후보**: 요구사항 누락을 겨냥하는 방법(예: 끝내기 전에 요청의 요구사항을 목록으로 대조). 같은 29개와 순정 3차를 기준으로 비교할 수 있다.
+
+## 고정 baseline (2026-10-02)
+
+앞으로 시험할 방법은 이 기준과 비교한다.
+
+- **조건**: DeepSWE v1.1 (`0b9fabb`), Pier 0.3.1 로컬 Docker, 순정 Claude Code 2.1.285, `claude-sonnet-5-5` 기본 effort.
+- **전체 113개**: 1회 65/113 통과 (58%).
+- **어려운 집합 18개 (`hard-3x`)**: 순정 3회 모두 실패한 과제. 대부분 매번 같은 요구사항을 놓친다(14개가 세 번 모두 f2p 90% 이상이고 점수가 거의 같다). 다시 돌리기만 해서 통과하는 몫이 거의 없어 방법의 효과를 가장 깨끗하게 본다. 순정 기준: 0/18 통과(3회), 평균 f2p 94%. 비교 때는 이 집합에 방법을 적용하고, 필요하면 순정 4차를 함께 돌려 0/18이 우연이 아닌지 확인한다.
+
+| 과제 | 언어 | 순정 1·2·3차 f2p | what-else |
+| --- | --- | --- | --- |
+| go-critic-doc-link-checker | go | 67%* 67%* 67%* | 통과 |
+| termenv-preserve-ansi-resets | go | 94% 94% 63% | 94% |
+| csstree-shorthand-expansion-compression | javascript | 92% 94% 89% | 91% |
+| kea-atomic-signal-selectors | typescript | 92% 92% 92% | 92% |
+| obsidian-linter-auto-table-of-contents | typescript | 90% 95% 90% | 95% |
+| ink-grid-box-layout | typescript | 96% 96% 84% | 통과 |
+| happy-dom-deterministic-intersectionobserver | typescript | 93% 93% 93% | 79% |
+| sqlfmt-create-table-ddl-formatting | python | 94%* 94%* 94%* | 94%* |
+| optique-conditional-option-dependencies | typescript | 94% 94% 94% | 97% |
+| meriyah-explicit-resource-declarations | typescript | 94% 94% 98% | 94% |
+| gql-incremental-graphql-delivery | python | 94%* 100%* 94% | 100%* |
+| tengo-destructuring-bindings | go | 97% 97% 96% | 통과 |
+| bandit-structured-nosec-directives | python | 97%* 97%* 97%* | 100%* |
+| koota-deferred-mutation-buffer | typescript | 97% 97% 97% | 99% |
+| obsidian-linter-link-format-conversion | typescript | 97% 98% 97% | 97% |
+| dateutil-rfc5545-timezone-interop | python | 97% 97% 99% | 99% |
+| mnamer-daemon-watch-lifecycle | python | 98% 98% 98% | 98% |
+| vulture-persistent-analysis-cache | python | 100%* 100%* 100%* | 100%* |
+
+`*`: 기존 테스트(p2p)도 일부 깨뜨림. 새 기능은 완성하고 기존 동작을 깨뜨리는 과제가 5개(sqlfmt, bandit-structured-nosec, vulture, gql, go-critic)다. what-else는 18개 중 3개(go-critic, ink, tengo)를 통과시켰다(각 1회).
+
+순정 baseline 전체 비용: 선별 $64.20, 재실행 $24.98, 3차 $16.71.
