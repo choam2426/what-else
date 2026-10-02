@@ -244,3 +244,33 @@ INSTALL.md를 바꿔 답할 사람이 없으면 고정 기본값 대신 자기 �
 **결론.** DeepSWE의 어려운 과제는 대부분 범위 문제가 아니다. 그래서 DeepSWE 통과율은 범위 찾기 방법의 효과를 재는 지표로 맞지 않는다. what-else로 통과한 과제(go-critic, tengo, ink, mnamer)도 모두 구현 오류 과제였으므로, 그 통과는 범위를 더 찾아서가 아니라 다른 이유(규칙의 확인 줄이 부른 재검토, 또는 실행 편차)로 보인다.
 
 범위 누락 3개는 모두 "새 기능을 넣을 때 기존 구조의 다른 자리(프록시 목록, 공유 제거 경로, 형제 메서드의 공통 옵션)를 맞추지 않은" 경우다. 이 레포가 겨냥하는 유형 그대로다.
+
+## 범위 누락 판정과 범위 실험 집합 (2026-10-02)
+
+통과율은 범위 찾기를 재지 못하므로(위 분류), 순정 실행 전부에서 **범위 누락**을 직접 판정했다. 어려운 집합 18개 밖의 95개 과제, 순정 136회를 서브에이전트 8개(Sonnet)가 판정했다. 기준: 테스트 통과와 무관하게, 에이전트 자신의 설계에서 함께 바꿔야 했는데 건드리지 않은 곳(형제 구현, 두 번째 경로, 등록·export 목록, 호출부, 타입·스키마, 설정, 요청하거나 테스트가 보는 문서). 구현 오류는 세지 않는다.
+
+- 판정한 136회 중 범위 누락 27회, 그중 10회는 **테스트를 통과한 실행**이었다(테스트가 잡지 않은 누락).
+- 종류: 두 번째 경로 19, 형제 구현 9, 타입·스키마 2. 같은 기능을 처리하는 다른 경로를 빠뜨리는 것이 주된 모양이다.
+- 113개 중 범위 누락이 한 번이라도 나온 과제는 21개.
+- 1회만 돌려 누락이 나온 3개(onedump, kombu-virtual-queue-dead-lettering, python-statemachine)를 순정 2회 더 돌렸더니 6회 모두 테스트는 통과했고, 6회 모두 같은 곳을 놓쳤다. 이 판정자에게는 이전에 놓친 곳을 알려 주고 확인하게 했으므로 찾는 쪽으로 치우쳤을 수 있다.
+
+**범위 실험 집합 (14개, `bench/deepswe-scope-set.txt`)**: 범위 누락이 2회 이상 나온 과제.
+
+| 과제 | 누락 | 놓친 곳 |
+| --- | --- | --- |
+| textual-kitty-key-phases | 3/3 | 드라이버의 Kitty 플래그 (linux, windows) |
+| kea-atomic-signal-selectors | 3/3 | `kea.ts` `proxyFields()` 예약 키 목록 |
+| koota-deferred-mutation-buffer | 3/3 | `trait.ts` 공유 제거 경로 |
+| onedump-dump-encryption-pipeline | 3/3 | `storage/storage.go` `PathGenerator` |
+| kombu-virtual-queue-dead-lettering | 3/3 | memory·filesystem 전송의 `_put_fanout` |
+| python-statemachine-state-data-scoping | 3/3 | dot 렌더러의 병렬 상태 라벨 |
+| claude-code-by-agents-recursive-delegation | 2/2 | Anthropic provider의 도구 노출 |
+| updo-policy-alerting | 2/2 | TUI 모니터링 경로 |
+| boa-hierarchical-evaluation-cancellation | 2/3 | Promise job 등록 경로 |
+| numba-stencil-boundary-modes | 2/3 | `parallel=True` stencil 경로 |
+| obsidian-linter-scoped-ignore-markers | 2/3 | `Rule.apply` 진입점 |
+| testem-bail-on-test-failure | 2/3 | `onTestsStart` 가드 |
+| gql-incremental-graphql-delivery | 2/3 | 형제 메서드의 `parse_results` 옵션 |
+| eicrud-keyset-pagination-cursor | 2/3 | OpenAPI `CrudOptions` 스키마 (확신도 낮음) |
+
+순정 기준: 이 14개에서 순정 실행 40회 중 범위 누락 34회(85%). kea, koota, gql 9회는 실패 원인 분류로, 나머지 31회는 범위 누락 판정으로 셌다. 앞으로 범위 찾기 방법은 이 집합에서 **범위 누락 여부**로 비교한다(같은 판정자, 같은 기준, 판정자는 어느 쪽 실행인지 모르게). 판정자 흔들림이 있으므로(예: httpx `__all__` 누락을 누락으로 보지 않음) 비교 때는 양쪽 실행을 같은 판정 묶음에서 판정한다.
