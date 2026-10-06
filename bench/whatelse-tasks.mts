@@ -126,7 +126,34 @@ function variants(setupJobs: string, outDir: string) {
   }
 }
 
+// A fixed tool instead of a setup: the files under <tool-dir> (except CLAUDE.append.md) are copied
+// into /app, and CLAUDE.append.md is appended to /app/CLAUDE.md. Same exclusions as the variants.
+function toolVariants(toolDir: string, outDir: string) {
+  const tasks = readFileSync(tasksFile!, "utf8").trim().split("\n").map((l) => readTask(l.trim()));
+  for (const t of tasks) {
+    const dir = join(outDir, t.id);
+    rmSync(dir, { recursive: true, force: true });
+    cpSync(t.dir, dir, { recursive: true });
+    rmSync(join(dir, "environment"), { recursive: true, force: true });
+    write(join(dir, "task.toml"), withoutPrebuiltImage(t.toml));
+    cpSync(toolDir, join(dir, "environment", "tool"), { recursive: true });
+    write(join(dir, "environment", "Dockerfile"), [
+      `FROM ${t.image}`,
+      `COPY tool /tmp/what-else-tool`,
+      `RUN cd /app && git update-index -q --refresh; \\`,
+      `    find /tmp/what-else-tool -mindepth 1 -maxdepth 1 ! -name CLAUDE.append.md -exec cp -r {} /app/ \\; \\`,
+      ` && cat /tmp/what-else-tool/CLAUDE.append.md >> CLAUDE.md \\`,
+      ` && git ls-files --others --exclude-standard >> .git/info/exclude \\`,
+      ` && (git diff --name-only | xargs -r git update-index --skip-worktree) \\`,
+      ` && rm -rf /tmp/what-else-tool`,
+      ``,
+    ].join("\n"));
+    console.log(`tool variant ${t.id}`);
+  }
+}
+
 if (command === "setup" && bench && tasksFile && rest[0]) setup(rest[0]);
+else if (command === "tool-variants" && bench && tasksFile && rest[0] && rest[1]) toolVariants(rest[0], rest[1]);
 else if (command === "variants" && bench && tasksFile && rest[0] && rest[1]) variants(rest[0], rest[1]);
 else {
   console.error("usage: node bench/whatelse-tasks.mts setup <bench-dir> <tasks-file> <out-dir> | variants <bench-dir> <tasks-file> <setup-jobs-dir> <out-dir>");
