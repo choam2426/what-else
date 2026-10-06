@@ -110,13 +110,21 @@ function variants(setupJobs: string, outDir: string) {
     const dropped = sections.filter((s) => !keep(s)).map((s) => s.match(/^diff --git a\/(\S+)/)?.[1]);
     if (dropped.length) console.log(`  ${t.id}: dropped setup edits to ${dropped.join(", ")}`);
     write(join(dir, "environment", "setup.patch"), sections.filter(keep).join(""));
+    // TOOL_DIR adds a fixed tool on top of the setup (see toolVariants), for a combined arm.
+    const tool = process.env["TOOL_DIR"];
+    if (tool) cpSync(tool, join(dir, "environment", "tool"), { recursive: true });
     write(join(dir, "environment", "Dockerfile"), [
       `FROM ${t.image}`,
       `COPY setup.patch /tmp/what-else-setup.patch`,
+      ...(tool ? [`COPY tool /tmp/what-else-tool`] : []),
       // Added files are excluded and changed files skip-worktree, so the agent's commits leave the setup out.
       // A prebuilt image has stale index stat data, which --3way reports as "does not match index".
       `RUN cd /app && git update-index -q --refresh; git apply --3way --whitespace=nowarn /tmp/what-else-setup.patch \\`,
       ` && git reset -q \\`,
+      ...(tool ? [
+        ` && find /tmp/what-else-tool -mindepth 1 -maxdepth 1 ! -name CLAUDE.append.md -exec cp -r {} /app/ \\; \\`,
+        ` && cat /tmp/what-else-tool/CLAUDE.append.md >> CLAUDE.md && rm -rf /tmp/what-else-tool \\`,
+      ] : []),
       ` && git ls-files --others --exclude-standard >> .git/info/exclude \\`,
       ` && (git diff --name-only | xargs -r git update-index --skip-worktree) \\`,
       ` && rm /tmp/what-else-setup.patch`,
