@@ -3,13 +3,15 @@
 # <bench-dir>/jobs/<job>-<from>-<to>.log (stderr to .err); the batch is done when the process exits.
 #
 # Usage: pwsh bench/deepswe-batch-detached.ps1 <bench-dir> <from> <to> [-List hard-set.txt] [-Job name]
-#        [-TasksDir whatelse/setup-tasks] [-PierExtra "--disable-verification"]
+#        [-TasksDir whatelse/setup-tasks] [-PierExtra "--disable-verification"] [-Jev]
+#   -Jev runs the Jev arm (WITH_JEV in deepswe-batch.sh).
 param([string]$Bench, [int]$From, [int]$To, [string]$List = "order-seed0.txt", [string]$Job = "baseline-sonnet55",
-  [string]$TasksDir = "deep-swe/tasks", [string]$PierExtra = "")
+  [string]$TasksDir = "deep-swe/tasks", [string]$PierExtra = "", [switch]$Jev)
 $env:TASKS_FILE = $List
 $env:JOB = $Job
 $env:TASKS_DIR = $TasksDir
 $env:PIER_EXTRA = $PierExtra
+if ($Jev) { $env:WITH_JEV = "1" } else { Remove-Item Env:WITH_JEV -ErrorAction SilentlyContinue }
 $script = (Join-Path $PSScriptRoot "deepswe-batch.sh") -replace '\\', '/'
 $log = Join-Path $Bench "jobs/$Job-$From-$To.log"
 $bash = "C:\Program Files\Git\bin\bash.exe"

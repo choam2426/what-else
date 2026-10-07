@@ -9,6 +9,9 @@
 #   <bench-dir>, default deep-swe/tasks) picks the task folder, and PIER_EXTRA adds pier options, for
 #   example --disable-verification for the what-else setup tasks.
 # Reads CLAUDE_CODE_OAUTH_TOKEN from the environment, or from the Windows user environment.
+# WITH_JEV=1 is the Jev arm: TYPESAFE_API_KEY is read the same way and handed to the agent by the patched
+# Pier (never through --ae, which would land in the job config), the agent's filtered egress also allows
+# the Jev API and docs, and the web tools are disabled, so Jev is the only thing outside the container.
 set -euo pipefail
 bench=$1 from=$2 to=$3 job=${4:-${JOB:-baseline-sonnet55}} list=${TASKS_FILE:-order-seed0.txt}
 model=anthropic/claude-sonnet-5-5 version=2.1.285 concurrent=${CONCURRENT:-10}
@@ -16,6 +19,15 @@ model=anthropic/claude-sonnet-5-5 version=2.1.285 concurrent=${CONCURRENT:-10}
 if [ -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
   CLAUDE_CODE_OAUTH_TOKEN=$(powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('CLAUDE_CODE_OAUTH_TOKEN','User')" | tr -d '\r\n')
   export CLAUDE_CODE_OAUTH_TOKEN
+fi
+
+if [ -n "${WITH_JEV:-}" ]; then
+  if [ -z "${TYPESAFE_API_KEY:-}" ]; then
+    TYPESAFE_API_KEY=$(powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('TYPESAFE_API_KEY','User')" | tr -d '\r\n')
+    export TYPESAFE_API_KEY
+  fi
+  export PIER_EXTRA_ALLOWED_DOMAINS=api.typesafe.ai,docs.typesafe.ai
+  PIER_EXTRA="${PIER_EXTRA:-} --ak disallowed_tools=EnterPlanMode,WebSearch,WebFetch"
 fi
 
 cd "$bench"
