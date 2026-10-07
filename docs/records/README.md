@@ -41,6 +41,7 @@
 | R12 | 다른 레포에서도 나나? | SWE-bench Pro 7과제 (ansible, teleport), 이슈 설명 요청 | 진짜 누락 2 → 2. 순정이 이미 거의 다 찾음 | 약함 | [e2e §12.4](e2e-benchmark.md#124-레포-규칙-체크리스트c의-효과) | 안 함, 레포 규칙 |
 | R13 | 범위를 찾는 방법이 범위 누락을 줄이나? | Sonnet 5.5, Docker(Linux) 안의 Claude Code. DeepSWE 범위 실험 집합 14과제(순정이 반복해서 범위를 놓친 과제), 방법마다 2회, 같은 판정자가 네 방법을 블라인드로 함께 판정 | 범위 누락 순정 18/28 → 레포 규칙 11, BM25 도구 10, 둘을 합쳐 12.5. 합쳐도 더 줄지 않음 | 보통 | [baseline-deepswe](baseline-deepswe.md#같은-판정자로-네-방법을-함께-판정-2회차와-합계-2026-10-07) | 레포 규칙, Lexical |
 | R14 | 효과가 "끝내기 전에 확인" 지시에서 오나? | R13과 같은 14과제 × 2회, 지시 한 단락만 넣은 방법을 더해 다섯 방법을 함께 판정 | 범위 누락 순정 16, 규칙 12.5, BM25 10.5, 조합 12.5, 지시만 10 (28건 중). 지시만으로 같은 효과 | 약함~보통 | [baseline-deepswe](baseline-deepswe.md#방법-3-끝내기-전에-확인-지시만-범위-실험-집합-2026-10-07) | 방법론 |
+| R15 | Jev를 쓸 수 있게만 해 두면 쓰나, 보태나? | R13과 같은 14과제 × 1회, 확인 지시 + Jev 지침 + 키, 에이전트 네트워크는 Jev만 허용, 웹 도구 끔 | 14과제 중 1과제만 Jev를 씀. 범위 누락 순정 7.5, 확인 지시만 4.5, 확인 지시 + Jev 5 | 약함 | [baseline-deepswe](baseline-deepswe.md#방법-4-확인-지시--jev를-쓸-수-있는-환경-2026-10-07) | Jev |
 
 ## 적용 범위 지도
 
@@ -60,7 +61,7 @@
 
 - [phase0-experiment.md](phase0-experiment.md): 초기 실험 설계와 R1~R4
 - [e2e-benchmark.md](e2e-benchmark.md): 스펙 → setup → 측정 벤치와 R5~R12
-- [baseline-deepswe.md](baseline-deepswe.md): DeepSWE 기준선, 범위 누락 판정, 범위 실험 집합과 R13~R14
+- [baseline-deepswe.md](baseline-deepswe.md): DeepSWE 기준선, 범위 누락 판정, 범위 실험 집합과 R13~R15
 - [methodology.md](methodology.md): 방법론 초안과 비교군 설명
 - [jevgrep-design.md](jevgrep-design.md): 처음 설계 (Jev 중심 검색 도구)
 - [spec-v0.7/](spec-v0.7/SKILL.md): 합의형 setup 이전의 마지막 스펙 (워커 위임 + Jev 검색 도구 고정 구성)
