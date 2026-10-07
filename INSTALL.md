@@ -31,7 +31,14 @@ When nobody is available to answer, go ahead with your own recommendation. Two d
 
 ## Where to start the proposal
 
-In the repository measured most carefully so far (Django), most real misses were places the repository's conventions call for: release notes, patch release notes, reference docs. Repository rules placed in the always-loaded instructions, as described in [guide/rules.md](guide/rules.md), fixed most of them for a small cost. So start the proposal from repository rules, and add a search tool where the diagnosis shows misses that neither names nor rules reach. The method cards say which search tool fits which kind of miss, and [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
+Start every setup from a check step before finishing: one paragraph in the always-loaded instructions asking the agent to check the other places a change may reach and say which it checked. On 14 repositories whose plain runs kept missing a second code path or a sibling implementation, that paragraph alone cut scope misses by more than a third. Repository rules and a search tool, each given with a similar step, did no better there. The method cards give the measured text.
+
+Then add what the diagnosis shows the check step leaves:
+
+- **Repository rules** ([guide/rules.md](guide/rules.md)) where misses are places the project's conventions call for, such as release notes and reference docs. On Django, rules fixed most of these for a small cost.
+- **A search tool** where misses share no name with the change and the agent does not think to look there.
+
+Verify each addition against the check step alone, since that is what it has to beat. [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
 
 ## Keep it improving
 

@@ -11,7 +11,7 @@
 | harness | Claude Code (CLI, 비대화형) |
 | OS | Windows 11 |
 | 모델 | 메인 Sonnet 5, 워커 Haiku 4.5 |
-| 기간 | 2026-09-28 ~ 09-30 |
+| 기간 | 2026-09-28 ~ 09-30 (R13~R14는 10-02 ~ 10-07, 메인 Sonnet 5.5, Linux 컨테이너) |
 | 비용 | 정가 환산 추정 (구독으로 돌려서 실제 청구가 아니다) |
 
 ## 근거 강도
@@ -48,13 +48,13 @@
 
 | 축 | 해 본 것 | 비어 있는 것 |
 | --- | --- | --- |
-| 레포 | Django (Python, 큼, 관례 강함), pydantic (Python, 중간), ansible (Python), teleport (Go). outline (TS)과 webclients (TS)는 일부만 | 모노레포, 프론트엔드 중심 TS, 여러 서비스·여러 언어, 사내 레포 |
+| 레포 | Django (Python, 큼, 관례 강함), pydantic (Python, 중간), ansible (Python), teleport (Go). outline (TS)과 webclients (TS)는 일부만. DeepSWE 범위 실험 집합 14개 레포 (Python, TS, JS, Go, Rust, R13~R14) | 모노레포, 프론트엔드 중심 TS, 여러 서비스·여러 언어, 사내 레포 |
 | 요청 종류 | 범위 찾기 지시("함께 바뀔 곳을 모두 찾아라", R1~R4), 커밋 메시지, Trac 티켓, GitHub 이슈 | 대화형 다회 작업, 사람이 리뷰하는 흐름 |
 | harness | Claude Code | Codex, Cursor 등 |
-| OS | Windows | macOS, Linux |
-| 모델 | Sonnet 5, Haiku 4.5 | 다른 회사 모델, 다음 세대 모델 |
-| 방법 | 레포 규칙, 방법론, 작은 모델 워커, Jev(좁게, 넓게), BM25·grep(순위 비교만) | dense retrieval, LSP, BM25를 에이전트 도구로, 누락 사건 캐기, 개선 루프, 합의형 setup |
-| 지표 | 필수 파일 재현율, 진짜 누락, 비용, 시간 | 누락의 심각도, 나중에 다시 고치는 비용 |
+| OS | Windows, Linux 컨테이너 (R13~R14) | macOS |
+| 모델 | Sonnet 5, Sonnet 5.5 (R13~R14), Haiku 4.5 | 다른 회사 모델, 다음 세대 모델 |
+| 방법 | 레포 규칙, 방법론, 끝내기 전 확인 지시, 작은 모델 워커, Jev(좁게, 넓게), BM25·grep(순위 비교), BM25를 에이전트 도구로 | dense retrieval, LSP, 확인 지시 위에 규칙이나 검색을 얹은 조합, 누락 사건 캐기, 개선 루프, 합의형 setup |
+| 지표 | 필수 파일 재현율, 진짜 누락, 범위 누락 (블라인드 판정), 비용, 시간 | 누락의 심각도, 나중에 다시 고치는 비용 |
 
 ## 원문 문서
 

@@ -2,7 +2,7 @@
 
 Most missed places are places nobody looked. Look everywhere this change can reach, starting from the repository rules, and keep track of what you checked.
 
-Whoever does the search follows this: the main agent itself, or a worker it delegates to ([delegation.md](delegation.md)). Used alone as a prompt addition for a strong model, this method did not measurably reduce misses; its value is as the checklist behind the repository rules and behind a delegated search.
+Whoever does the search follows this: the main agent itself, or a worker it delegates to ([delegation.md](delegation.md)). Added in full to the instructions of a strong model whose request already asked it to find every place, this method did not measurably reduce misses. A short check step before finishing, naming the axes below in one paragraph, did reduce them with ordinary requests (see the method cards). Its value is as the checklist behind that step, the repository rules and a delegated search.
 
 ## 1. Write down what the change changes
 

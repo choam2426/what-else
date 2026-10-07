@@ -2,7 +2,7 @@
 
 What earlier experiments found about each approach. Use them to build the proposal, and compare the conditions each result was measured in with the project at hand before leaning on it.
 
-**Conditions of every result below, unless a card says otherwise:** Claude Code on Windows, main model Sonnet 5 (worker Haiku 4.5), 2026-09-28 to 09-30. A result from one harness, one model generation and a handful of repositories is a starting point for the project's own verification, not a verdict.
+**Conditions of every result below, unless a card says otherwise:** Claude Code on Windows, main model Sonnet 5 (worker Haiku 4.5), 2026-09-28 to 09-30. Results marked *DeepSWE* come from Claude Code with Sonnet 5.5 inside Linux containers, 2026-10-02 to 10-07, on a scope set of 14 DeepSWE tasks in 14 repositories (Python, TypeScript, JavaScript, Go, Rust) where the plain agent had repeatedly missed places, mostly a second code path or a sibling implementation. There, each method ran twice per task, and blind judges saw all methods' changes for a task side by side and counted scope misses against each change's own design. A result from one harness, one model generation and a handful of repositories is a starting point for the project's own verification, not a verdict.
 
 **Evidence strength:** *strong* means consistent across several repositories and repeated runs; *moderate* means repeated runs in one repository, or single runs agreeing across several; *weak* means one run in one repository, or a difference within run-to-run variance; *not measured* means nobody has tried it yet.
 
@@ -17,6 +17,18 @@ Each card carries the conditions needed to judge it. The full experiment records
 - **Not enough when:** conventions call for files the change itself never mentions. On Django, one plain run missed required files in 6 of 16 changes; many of those places were one search away, and the agent had not looked there. A second plain run found half of those files, so single runs overstate what is missed.
 - **Evidence:** weak.
 
+## A check step before finishing
+
+- **What:** one paragraph in the always-loaded instructions, and nothing else. It asks the agent, before it finishes a change, to check the places the change may also have to reach, open the likely ones, decide for each, and say in its summary which it checked. The text measured:
+
+  > Before finishing a change, check whether it must also reach other places in this project: another implementation of the same thing, another path that makes the same decision, a list or registry the new thing belongs in, callers that depend on changed behavior, and declared types or schemas. Open the likely places and decide for each whether it needs the same change. In your summary, say which you checked.
+
+- **Helped when (DeepSWE):** scope misses over 28 runs fell from 16 with the plain agent to 10. That matched or beat every other method judged alongside it: BM25 tool 10.5, repository rules 12.5, rules plus BM25 12.5. In one run each, it covered a second code path in numba and a sibling in onedump that the rules and BM25 runs missed.
+- **Did not reach:** places that need knowledge the agent does not have. A terminal flag in textual's drivers was found only once, by the BM25 tool. Convention files, such as release notes, were not part of this measurement; on Django, repository rules fixed those.
+- **Cost:** a paragraph of instructions; no setup and no tool.
+- **Use it as:** the base of every setup. Add rules or a search tool on top where the diagnosis shows misses this step leaves, and verify that the addition beats the step alone.
+- **Evidence:** weak to moderate. One benchmark, 14 tasks × 2 runs, two judges agreeing on 85% of verdicts; in the second round the gaps between methods were small.
+
 ## Repository rules with a checklist line
 
 - **What:** rules about what the project changes together ([rules.md](rules.md)), in the always-loaded instructions, plus one line asking the agent to check the places they point to before finishing. No other tools.
@@ -24,6 +36,7 @@ Each card carries the conditions needed to judge it. The full experiment records
   - Django, 12 held-out changes described by their original tickets, rules written before any tuning: real misses 7 → 3, changes with no real miss 6/12 → 10/12.
   - Dev set, 10 changes (Django 6, pydantic 4): real misses 20 → 5. The requests there were commit messages and the rules had been tuned on the dev set, so this number is likely inflated.
 - **Fixed:** mostly convention files: release notes, patch release notes, reference docs.
+- **On code paths (DeepSWE):** rules written by an agent for each repository with no user to answer, plus the checklist line: scope misses 18 → 11 over 28 runs in one judging, 16 → 12.5 in another. The check step alone did as well (10), so on this kind of miss the rules added nothing measurable beyond the checklist line.
 - **Did not help when:** the plain agent already missed almost nothing.
 - **Cost:** about +$0.09 and +20 s per change on Django (from $0.09 to $0.18); +$0.05 on SWE-bench Pro.
 - **Watch for:** rules copied from specific past commits instead of kinds of change; long rules loaded into every session.
@@ -32,8 +45,8 @@ Each card carries the conditions needed to judge it. The full experiment records
 ## Scope method as a prompt addition
 
 - **What:** the axes in [scope-method.md](scope-method.md) added to the agent's instructions, without repository rules.
-- **Result:** on 16 Django changes, files found 73/87 against 72/87 and 69/87 for two plain runs; wrong candidates rose. No gain beyond variance.
-- **Use it as:** the checklist behind the rules and behind a delegated search, rather than on its own.
+- **Result:** on 16 Django changes, files found 73/87 against 72/87 and 69/87 for two plain runs; wrong candidates rose. No gain beyond variance. There the request itself already asked the agent to find every place that changes together, so a method for doing so had little to add. With ordinary requests, the short check step above did reduce misses.
+- **Use it as:** the checklist behind the check step, the rules and a delegated search, rather than as a long addition on its own.
 - **Evidence:** weak.
 
 ## Small model with the scope method and rules
@@ -75,6 +88,7 @@ Measured as a ranker over whole areas with one question containing the change de
 
 - **What:** ranks by shared words. Local, free, fast.
 - **Result:** top-10 recall 27/53. In a simulation on one Django change, preselecting 1,000 candidates with it for a slower classifier kept 11 of 12 files in an estimated 50 s. That worked because every file shared a term with the change ("PostgreSQL", a version number).
+- **As the agent's tool (DeepSWE):** a local BM25 script over the files git tracks, run once before finishing with a description of the change, with the instruction to open each listed file not yet changed. Scope misses 18 → 10 over 28 runs in one judging, 16 → 10.5 in another, about the same as the check step alone (10). It once found a place nothing else did (textual's terminal drivers). Combined with repository rules it did no better than either alone.
 - **Fits:** misses that share words with the change, and preselecting candidates for a slower backend.
 - **Evidence:** weak.
 
