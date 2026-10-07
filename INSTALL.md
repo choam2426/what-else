@@ -24,7 +24,7 @@ This file says what to do and why. How to build each part is yours to decide for
 3. **Propose a setup.** Read the method cards that fit the diagnosis, and compare the conditions each result was measured in with the project. Recommend one setup with the reasons for it. Name the alternatives you considered, including leaving things as they are, and say how you will verify the setup and what verifying costs.
 4. **Agree on it with the user.** Some decisions belong to the user: whether code may leave the machine, how much spending and waiting per change is acceptable, and which option to take. Put them to the user together, with your recommendation first.
 5. **Build** what was agreed: instructions, notes and tools for finding the scope of a change. Leave the project's own code, dependencies and build settings as they are; when something in the environment gets in the way of building or verifying, report it instead.
-6. **Verify it on the project**, following [guide/verification.md](guide/verification.md): show what the setup finds that the plain agent misses, and what it costs. Spend on paid services only as agreed.
+6. **Verify it on the project**, following [guide/verification.md](guide/verification.md): replay a few changes from the project's history that missed a place, and show whether the setup reaches that place now and what each run costs. Spend on paid services only as agreed.
 7. **Report** the diagnosis, the options considered, what was agreed, what was built, the verification numbers, your assumptions, and what you could not check. Write it so another person could learn from it, since it is also a record of one more project.
 
 When nobody is available to answer, go ahead with your own recommendation. Two decisions still belong to the user, so take the cautious side of each: keep code on the machine, choosing a local alternative where your recommendation would send code to a service, and keep spending to a small amount you state in the report. Verify the setup within that amount, and report what you would change with the user's answers.
@@ -43,7 +43,7 @@ Then add what the diagnosis shows these two leave:
 - **Repository rules** ([guide/rules.md](guide/rules.md)) where misses are places the project's conventions call for, such as release notes and reference docs. On Django, rules fixed most of these for a small cost.
 - **A search tool** where misses share no name with the change and the agent does not think to look there.
 
-Verify each addition against these two steps alone, since that is what it has to beat. [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
+Add rules or a search tool for the miss events the two steps still miss, and check the addition on those events ([guide/verification.md](guide/verification.md)). [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
 
 ## Keep it improving
 

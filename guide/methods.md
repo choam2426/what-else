@@ -26,7 +26,7 @@ Each card carries the conditions needed to judge it. The full experiment records
 - **Helped when (DeepSWE):** scope misses over 28 runs fell from 16 with the plain agent to 10. That matched or beat every other method judged alongside it: BM25 tool 10.5, repository rules 12.5, rules plus BM25 12.5. In one run each, it covered a second code path in numba and a sibling in onedump that the rules and BM25 runs missed.
 - **Did not reach:** places that need knowledge the agent does not have. A terminal flag in textual's drivers was found only once, by the BM25 tool. Convention files, such as release notes, were not part of this measurement; on Django, repository rules fixed those.
 - **Cost:** a paragraph of instructions; no setup and no tool.
-- **Use it as:** the base of every setup, together with the second look below. Add rules or a search tool on top where the diagnosis shows misses these leave, and verify that the addition beats the base alone.
+- **Use it as:** the base of every setup, together with the second look below. Add rules or a search tool on top only for misses these leave, and check the addition on those misses.
 - **Evidence:** weak to moderate. One benchmark, 14 tasks × 2 runs, two judges agreeing on 85% of verdicts; in the second round the gaps between methods were small.
 
 ## A second look with an acceptance rule

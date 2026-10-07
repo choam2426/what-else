@@ -1,29 +1,34 @@
 # Verifying a setup on the project
 
-Verification shows the user, with the project's own changes, what the setup finds that the plain agent misses and what it costs. The recorded experiments suggest where to start; the project's numbers decide.
+Verification answers one question with the project's own history: does the setup reach the places changes here have actually missed, and at what cost per change?
 
-## Test cases
+Which method beats which is a different question, and this repository answers it from controlled experiments: many runs of each method on the same tasks, with blind judges comparing them (see the method cards). A handful of runs in one project cannot settle it, since agents vary from run to run by more than the gaps between methods. So verification here checks the setup against known answers, and leaves the comparison of methods to the records.
 
-- **Miss events** from the diagnosis make the best cases: the original change is the task, and the place it missed is what the setup must find.
-- **Past changes with a request written before the implementation**, such as an issue, a ticket or a pull request description, make good cases too. Commit messages make poor requests: they are either too terse to act on or they describe the answer, and the historical diff is only one of several correct implementations.
-- Keep the cases you tune the setup on apart from the cases you judge it by. Judging on the cases you tuned on overstates the gain.
-- Give each case a copy of the repository as it was before the change, without the later history, so the answer cannot leak in.
+## Replaying miss events
 
-## What to measure
+A **miss event** from the diagnosis has a known answer: the place the original change missed, which a later commit filled in. That makes it a test case that needs no judge.
 
-- **Places found**: which required places the final change covers. Judge a missed place against the agent's own implementation, since a different, correct implementation may not need it.
-- **Real misses per change**, and how costly each would have been: caught by tests, or shipped; documentation, or logic.
-- **Cost and time** per change, including paid services.
-- **The plain agent on the same cases**, as the baseline. When the setup adds rules or a search tool to the base steps (the check step and the second look), also run the base steps alone, since that is what the addition has to beat.
+1. **Set up the case.** Take a copy of the repository at the commit before the original change, without the later history, so the answer cannot leak in. Add the setup to that copy.
+2. **Write the request.** Use the issue, ticket or pull request description written before the change, when there is one. Otherwise write a short request from the original change's intent: the behavior wanted, in the words a developer would use. Leave out the missed place and anything that points to it.
+3. **Run the agent once** with the setup, the way the project's developers run it.
+4. **Check the answer.** Did the final change reach the missed place, by the same edit or by another one that makes it unnecessary? Note the cost and time of the run.
 
-## Cheap first
+Three to five miss events make a useful first check. Prefer events whose missed place was logic over documentation, since those cost more when they ship.
 
-- A **ranking check** asks only whether each missed place appears near the top of a ranked search's list. It costs little and compares search backends quickly.
-- A **full run** has the agent make the change with and without the setup. It measures what the user will get, and costs a model run per case. Agree with the user on how many.
+A case says something about the setup only if the agent without it would still miss the place. When the budget allows, run one case without the setup as well; if the plain agent already reaches the place, the event no longer tests anything and can be dropped.
 
-When nobody is available to agree, verification still runs, on a small amount you state: the ranking check for any ranked search the setup includes, and full runs with and without the setup on a few cases, such as three miss events. Report the numbers, how far they can be trusted at that size, and how many more runs a decision would need.
+## Checking an addition
 
-## Reading the numbers
+Rules or a search tool are added on top of the base steps (the check step and the second look) only for misses the base steps leave. So check an addition on exactly those miss events: replay them with the base steps, and add the rules or the tool only for the events still missed. Then replay those events again with the addition, and see whether it now reaches them.
 
-- Agents vary from run to run: the same plain agent can find twice as much on one run as on another, and cost two to three times as much. Run each side more than once where a decision rests on the difference, and compare case by case.
-- Report the model versions, the harness and the date, since results age as models improve.
+A **ranking check** costs even less for a search tool: ask it about the original change and see whether the missed place appears near the top of its list.
+
+## Evidence from use
+
+Once the setup is in use, every change adds evidence for free. The second look reports what it found and what the agent did with each finding, in the agent's summary. Over a few weeks, those summaries show what the second look catches in this project, what it gets wrong, and which kinds of places keep surfacing. Fold what they show into the rules, as described in [rules.md](rules.md).
+
+## Reporting
+
+Report what the replays showed: for each miss event, whether the setup reached the place, and the cost and time per run. Say plainly what that many cases can and cannot show. "4 of 5 past misses were reached" is a finding; "better than the base steps" is not, at this size. Report the model versions, the harness and the date, since results age as models improve.
+
+When nobody is available to agree on spending, run the replays on a small amount you state, such as three miss events with the setup, and report as above.
