@@ -26,8 +26,26 @@ Each card carries the conditions needed to judge it. The full experiment records
 - **Helped when (DeepSWE):** scope misses over 28 runs fell from 16 with the plain agent to 10. That matched or beat every other method judged alongside it: BM25 tool 10.5, repository rules 12.5, rules plus BM25 12.5. In one run each, it covered a second code path in numba and a sibling in onedump that the rules and BM25 runs missed.
 - **Did not reach:** places that need knowledge the agent does not have. A terminal flag in textual's drivers was found only once, by the BM25 tool. Convention files, such as release notes, were not part of this measurement; on Django, repository rules fixed those.
 - **Cost:** a paragraph of instructions; no setup and no tool.
-- **Use it as:** the base of every setup. Add rules or a search tool on top where the diagnosis shows misses this step leaves, and verify that the addition beats the step alone.
+- **Use it as:** the base of every setup, together with the second look below. Add rules or a search tool on top where the diagnosis shows misses these leave, and verify that the addition beats the base alone.
 - **Evidence:** weak to moderate. One benchmark, 14 tasks × 2 runs, two judges agreeing on 85% of verdicts; in the second round the gaps between methods were small.
+
+## A second look with an acceptance rule
+
+- **What:** added after the check step, in the same always-loaded instructions. Before finishing, the agent has a subagent with none of its context take a second look: the subagent gets only the original request, reads the change itself with `git diff`, explores the code, and reports places the change must also reach and does not, each with one sentence on what breaks if it is left as it is. The agent then fixes every reported place whose sentence holds up when it reads the code, including places the request does not name, and says what it found where a sentence does not hold up. The text measured, placed after the check step:
+
+  > Whoever designed a change tends to look where the design already points, so the places it misses are the ones that design never brings to mind. After your own check, and before you finish, have a subagent take that second look with none of your context.
+  >
+  > Give the subagent only the original request, word for word, and tell it to read the change itself with `git diff` (and `git status` for new files) and to explore the code as it sees fit. Ask it to find places this change must also reach and does not: another implementation of the same thing, another path that makes the same decision, a list or registry, callers that depend on changed behavior, declared types or schemas, and anything else the change implies. For each place it reports, ask for the file and symbol and one sentence on what breaks or stays wrong if it is left as it is. Leave your own reasoning and the list of places you checked out of the brief, so it looks on its own.
+  >
+  > Then judge each place it reports by one test: does its sentence about what breaks or stays wrong hold up when you read the code? Where it holds up, make the change, including in places the request does not name. A request describes the behavior wanted; the places that behavior has to reach are for you to find, so a sibling, a second path or a caller the request leaves unnamed is still in scope. Where the sentence does not hold up, say what you found in the code that shows it. Changing a signature that other code calls means updating those callers too, which is part of the same change.
+  >
+  > In your summary, say what the second look reported and what you did with each.
+
+- **Why both parts:** whoever designed a change looks where the design points, so a second look without that context finds other places. Without the acceptance rule, the agent turned those findings down as outside the request ("the request names only direct and topic", "changing the signature would break callers"), and the result equalled the check step alone (5 against 5.5 of 14).
+- **Helped when (DeepSWE):** scope misses over 28 runs: plain 15.5, check step alone 11, check step with the second look and the acceptance rule 6. It fixed places other methods had rarely or never fixed: a sibling transport's fanout path in kombu (never before), the terminal flags in all three textual drivers (once before, by BM25), a legacy path in obsidian.
+- **Did not reach:** a capability the change needed in another provider (claude-code-by-agents), missed by every method; the agent noted the gap in its summary and left it.
+- **Cost:** one subagent run per change. Changes beyond the request with no good reason stayed about the same as with the check step alone (4 against 3 of 14); justified ones, such as documenting a new option, rose, which is acceptable.
+- **Evidence:** moderate. One benchmark, 14 tasks × 2 runs, the same two judges seeing all methods of a task, agreeing on 88% and 90% of verdicts.
 
 ## Repository rules with a checklist line
 

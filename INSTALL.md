@@ -31,14 +31,19 @@ When nobody is available to answer, go ahead with your own recommendation. Two d
 
 ## Where to start the proposal
 
-Start every setup from a check step before finishing: one paragraph in the always-loaded instructions asking the agent to check the other places a change may reach and say which it checked. On 14 repositories whose plain runs kept missing a second code path or a sibling implementation, that paragraph alone cut scope misses by more than a third. Repository rules and a search tool, each given with a similar step, did no better there. The method cards give the measured text.
+Start every setup from two steps in the always-loaded instructions, both described in the method cards with the measured text:
 
-Then add what the diagnosis shows the check step leaves:
+- **A check step before finishing**: the agent checks the other places a change may reach and says which it checked.
+- **A second look with an acceptance rule**: a subagent with none of the agent's context reads the request and the diff and reports places the change still has to reach; the agent fixes each one whose reason holds up in the code, including places the request does not name.
+
+On 14 repositories whose plain runs kept missing a second code path or a sibling implementation, the check step alone cut scope misses by about a third, and the second look with the acceptance rule cut them by about 60% (15.5 → 6 of 28). Repository rules and search tools did no better than the check step there.
+
+Then add what the diagnosis shows these two leave:
 
 - **Repository rules** ([guide/rules.md](guide/rules.md)) where misses are places the project's conventions call for, such as release notes and reference docs. On Django, rules fixed most of these for a small cost.
 - **A search tool** where misses share no name with the change and the agent does not think to look there.
 
-Verify each addition against the check step alone, since that is what it has to beat. [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
+Verify each addition against these two steps alone, since that is what it has to beat. [guide/scope-method.md](guide/scope-method.md) is the checklist of places any change can reach.
 
 ## Keep it improving
 

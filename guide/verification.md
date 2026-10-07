@@ -14,7 +14,7 @@ Verification shows the user, with the project's own changes, what the setup find
 - **Places found**: which required places the final change covers. Judge a missed place against the agent's own implementation, since a different, correct implementation may not need it.
 - **Real misses per change**, and how costly each would have been: caught by tests, or shipped; documentation, or logic.
 - **Cost and time** per change, including paid services.
-- **The plain agent on the same cases**, as the baseline. When the setup adds rules or a search tool to the check step, also run the check step alone, since that is what the addition has to beat.
+- **The plain agent on the same cases**, as the baseline. When the setup adds rules or a search tool to the base steps (the check step and the second look), also run the base steps alone, since that is what the addition has to beat.
 
 ## Cheap first
 

@@ -6,7 +6,7 @@ The diagnosis answers three questions about the project, from its own history an
 2. Which kinds of places get missed?
 3. How costly are those misses?
 
-The answers decide the proposal. A repository where changes rarely miss anything needs little or nothing. Most setups start from a check step before finishing; a repository whose misses are convention files adds rules. A repository whose misses are places that share no name with the change may need a search tool that ranks by meaning; verify that it helps there, since the measured gain from one vanished once repository rules were in place.
+The answers decide the proposal. A repository where changes rarely miss anything needs little or nothing. Most setups start from a check step before finishing and a second look by a fresh subagent; a repository whose misses are convention files adds rules. A repository whose misses are places that share no name with the change may need a search tool that ranks by meaning; verify that it helps there, since the measured gain from one vanished once repository rules were in place.
 
 ## Miss events in the history
 
@@ -39,8 +39,8 @@ Miss events also serve twice more: they point to the rules to write ([rules.md](
 | Finding | Leads toward |
 | --- | --- |
 | Few miss events, and the plain agent already finds nearly everything | Leaving things as they are, or the check step only |
-| Misses are second code paths, sibling implementations, registries or callers | The check step before finishing |
-| Misses are mostly convention files | The check step, plus repository rules |
+| Misses are second code paths, sibling implementations, registries or callers | The check step and the second look with the acceptance rule |
+| Misses are mostly convention files | The base steps, plus repository rules |
 | Misses share names with the change, and the agent did not look there | The check step, with the scope method as its checklist |
 | Misses share words, but not exact names, with the change | Lexical ranking |
 | Misses share no words with the change | A ranked search that ranks by meaning, such as Jev or semantic search, verified on the project |
