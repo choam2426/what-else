@@ -43,6 +43,7 @@
 | R14 | 효과가 "끝내기 전에 확인" 지시에서 오나? | R13과 같은 14과제 × 2회, 지시 한 단락만 넣은 방법을 더해 다섯 방법을 함께 판정 | 범위 누락 순정 16, 규칙 12.5, BM25 10.5, 조합 12.5, 지시만 10 (28건 중). 지시만으로 같은 효과 | 약함~보통 | [baseline-deepswe](baseline-deepswe.md#방법-3-끝내기-전에-확인-지시만-범위-실험-집합-2026-10-07) | 방법론 |
 | R15 | Jev를 쓸 수 있게만 해 두면 쓰나, 보태나? | R13과 같은 14과제 × 1회, 확인 지시 + Jev 지침 + 키, 에이전트 네트워크는 Jev만 허용, 웹 도구 끔 | 14과제 중 1과제만 Jev를 씀. 범위 누락 순정 7.5, 확인 지시만 4.5, 확인 지시 + Jev 5 | 약함 | [baseline-deepswe](baseline-deepswe.md#방법-4-확인-지시--jev를-쓸-수-있는-환경-2026-10-07) | Jev |
 | R16 | 쓰는 이유를 적으면 Jev가 보태나? | R15와 같은 조건, 지침에 "떠올리지 못한 곳을 찾는 용도"와 넓힐 영역을 적음 | 3/14과제가 Jev를 씀. 쓴 과제에서 Jev 쪽·확인 지시만 모두 누락 0, 순정 대비 1건(gql)만 줄임. 전체 순정 10, 확인 지시만 5, Jev 6 | 약함 | [baseline-deepswe](baseline-deepswe.md#방법-4b-jev를-쓰는-이유를-적은-지침-2026-10-07) | Jev |
+| R17 | 다른 눈으로 다시 보면 남은 누락이 줄어드나? | R13과 같은 14과제 × 2회, 확인 지시 뒤 맥락 없는 서브에이전트가 요청과 diff만 보고 검토, 받아들이는 기준(깨지는 이유가 맞으면 요청에 없어도 고침) 유무 비교 | 기준 없이는 검토가 짚은 곳을 거절해 확인 지시만과 같음(5 대 5.5). 기준을 넣으면 범위 누락 순정 15.5, 확인 지시만 11, 검토 + 기준 6 (28건 중) | 보통 | [baseline-deepswe](baseline-deepswe.md#2회차와-합계-2026-10-07) | 방법론 |
 
 ## 적용 범위 지도
 
@@ -62,7 +63,7 @@
 
 - [phase0-experiment.md](phase0-experiment.md): 초기 실험 설계와 R1~R4
 - [e2e-benchmark.md](e2e-benchmark.md): 스펙 → setup → 측정 벤치와 R5~R12
-- [baseline-deepswe.md](baseline-deepswe.md): DeepSWE 기준선, 범위 누락 판정, 범위 실험 집합과 R13~R16
+- [baseline-deepswe.md](baseline-deepswe.md): DeepSWE 기준선, 범위 누락 판정, 범위 실험 집합과 R13~R17
 - [methodology.md](methodology.md): 방법론 초안과 비교군 설명
 - [jevgrep-design.md](jevgrep-design.md): 처음 설계 (Jev 중심 검색 도구)
 - [spec-v0.7/](spec-v0.7/SKILL.md): 합의형 setup 이전의 마지막 스펙 (워커 위임 + Jev 검색 도구 고정 구성)
