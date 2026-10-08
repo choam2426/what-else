@@ -1,0 +1,3 @@
+{"kea-atomic-signal-selectors":{"P1":{"A":"not_needed","B":"covered","C":"not_needed","D":"not_needed","E":"not_needed"}},
+"updo-policy-alerting":{"P1":{"A":"not_needed","B":"not_needed","C":"not_needed","D":"not_needed","E":"not_needed"}},
+"gql-incremental-graphql-delivery":{"P1":{"A":"not_needed","B":"not_needed","C":"missed","D":"not_needed","E":"covered"},"P2":{"A":"not_needed","B":"not_needed","C":"not_needed","D":"not_needed","E":"not_needed"},"P3":{"A":"not_needed","B":"not_needed","C":"not_needed","D":"not_needed","E":"not_needed"}}}

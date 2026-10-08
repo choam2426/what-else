@@ -1,0 +1,100 @@
+{
+ "textual-kitty-key-phases": {
+  "A": "jobs/whatelse4-run",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/baseline-scope-fresh2",
+  "D": "jobs/check-run2",
+  "E": "jobs/combo-run2"
+ },
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/bm25-run2",
+  "E": "jobs/check-run2"
+ },
+ "koota-deferred-mutation-buffer": {
+  "A": "jobs/whatelse4-run",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/baseline-scope-fresh2",
+  "D": "jobs/combo-run2",
+  "E": "jobs/check-run2"
+ },
+ "onedump-dump-encryption-pipeline": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/bm25-run2",
+  "E": "jobs/combo-run2"
+ },
+ "kombu-virtual-queue-dead-lettering": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/check-run2",
+  "E": "jobs/baseline-scope-fresh2"
+ },
+ "python-statemachine-state-data-scoping": {
+  "A": "jobs/whatelse4-run",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/baseline-scope-fresh2",
+  "D": "jobs/combo-run2",
+  "E": "jobs/check-run2"
+ },
+ "claude-code-by-agents-recursive-delegation": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/check-run2",
+  "E": "jobs/baseline-scope-fresh2"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/whatelse4-run",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/combo-run2",
+  "D": "jobs/check-run2",
+  "E": "jobs/bm25-run2"
+ },
+ "boa-hierarchical-evaluation-cancellation": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/bm25-run2",
+  "C": "jobs/check-run2",
+  "D": "jobs/whatelse4-run",
+  "E": "jobs/baseline-scope-fresh2"
+ },
+ "numba-stencil-boundary-modes": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/combo-run2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/bm25-run2",
+  "E": "jobs/check-run2"
+ },
+ "obsidian-linter-scoped-ignore-markers": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/whatelse4-run",
+  "D": "jobs/bm25-run2",
+  "E": "jobs/check-run2"
+ },
+ "testem-bail-on-test-failure": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/check-run2",
+  "C": "jobs/baseline-scope-fresh2",
+  "D": "jobs/whatelse4-run",
+  "E": "jobs/bm25-run2"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/combo-run2",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/check-run2",
+  "D": "jobs/whatelse4-run",
+  "E": "jobs/bm25-run2"
+ },
+ "eicrud-keyset-pagination-cursor": {
+  "A": "jobs/whatelse4-run",
+  "B": "jobs/check-run2",
+  "C": "jobs/combo-run2",
+  "D": "jobs/baseline-scope-fresh2",
+  "E": "jobs/bm25-run2"
+ }
+}

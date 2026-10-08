@@ -1,0 +1,72 @@
+{
+ "textual-kitty-key-phases": {
+  "A": "jobs/check-run2",
+  "B": "jobs/accept-run2",
+  "C": "jobs/baseline-scope-fresh2"
+ },
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "koota-deferred-mutation-buffer": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "onedump-dump-encryption-pipeline": {
+  "A": "jobs/accept-run2",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/check-run2"
+ },
+ "kombu-virtual-queue-dead-lettering": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "python-statemachine-state-data-scoping": {
+  "A": "jobs/check-run2",
+  "B": "jobs/accept-run2",
+  "C": "jobs/baseline-scope-fresh2"
+ },
+ "claude-code-by-agents-recursive-delegation": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "boa-hierarchical-evaluation-cancellation": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run2",
+  "C": "jobs/accept-run2"
+ },
+ "numba-stencil-boundary-modes": {
+  "A": "jobs/check-run2",
+  "B": "jobs/baseline-scope-fresh2",
+  "C": "jobs/accept-run2"
+ },
+ "obsidian-linter-scoped-ignore-markers": {
+  "A": "jobs/accept-run2",
+  "B": "jobs/check-run2",
+  "C": "jobs/baseline-scope-fresh2"
+ },
+ "testem-bail-on-test-failure": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/accept-run2",
+  "C": "jobs/check-run2"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/accept-run2",
+  "B": "jobs/check-run2",
+  "C": "jobs/baseline-scope-fresh2"
+ },
+ "eicrud-keyset-pagination-cursor": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/accept-run2",
+  "C": "jobs/check-run2"
+ }
+}

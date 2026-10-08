@@ -1,0 +1,23 @@
+{
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run",
+  "C": "jobs/baseline-scope-fresh",
+  "D": "jobs/jev2-run",
+  "E": "jobs/check-run2"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/check-run2",
+  "B": "jobs/baseline-scope-fresh",
+  "C": "jobs/baseline-scope-fresh2",
+  "D": "jobs/check-run",
+  "E": "jobs/jev2-run"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/baseline-scope-fresh2",
+  "B": "jobs/check-run",
+  "C": "jobs/baseline-scope-fresh",
+  "D": "jobs/check-run2",
+  "E": "jobs/jev2-run"
+ }
+}

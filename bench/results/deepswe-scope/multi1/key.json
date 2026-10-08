@@ -1,0 +1,86 @@
+{
+ "textual-kitty-key-phases": {
+  "A": "jobs/whatelse3-run",
+  "B": "jobs/bm25-run",
+  "C": "jobs/baseline-scope-fresh",
+  "D": "jobs/combo-run"
+ },
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/bm25-run"
+ },
+ "koota-deferred-mutation-buffer": {
+  "A": "jobs/bm25-run",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "onedump-dump-encryption-pipeline": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/bm25-run",
+  "D": "jobs/combo-run"
+ },
+ "kombu-virtual-queue-dead-lettering": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/bm25-run",
+  "D": "jobs/combo-run"
+ },
+ "python-statemachine-state-data-scoping": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/bm25-run"
+ },
+ "claude-code-by-agents-recursive-delegation": {
+  "A": "jobs/bm25-run",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/bm25-run",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "boa-hierarchical-evaluation-cancellation": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/bm25-run",
+  "D": "jobs/combo-run"
+ },
+ "numba-stencil-boundary-modes": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/combo-run",
+  "C": "jobs/whatelse3-run",
+  "D": "jobs/bm25-run"
+ },
+ "obsidian-linter-scoped-ignore-markers": {
+  "A": "jobs/combo-run",
+  "B": "jobs/bm25-run",
+  "C": "jobs/whatelse3-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "testem-bail-on-test-failure": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/bm25-run",
+  "D": "jobs/combo-run"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/combo-run",
+  "B": "jobs/bm25-run",
+  "C": "jobs/whatelse3-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "eicrud-keyset-pagination-cursor": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/whatelse3-run",
+  "C": "jobs/combo-run",
+  "D": "jobs/bm25-run"
+ }
+}

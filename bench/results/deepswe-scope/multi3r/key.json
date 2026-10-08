@@ -1,0 +1,72 @@
+{
+ "textual-kitty-key-phases": {
+  "A": "jobs/check-run",
+  "B": "jobs/review-run",
+  "C": "jobs/baseline-scope-fresh"
+ },
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "koota-deferred-mutation-buffer": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "onedump-dump-encryption-pipeline": {
+  "A": "jobs/review-run",
+  "B": "jobs/baseline-scope-fresh",
+  "C": "jobs/check-run"
+ },
+ "kombu-virtual-queue-dead-lettering": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "python-statemachine-state-data-scoping": {
+  "A": "jobs/check-run",
+  "B": "jobs/review-run",
+  "C": "jobs/baseline-scope-fresh"
+ },
+ "claude-code-by-agents-recursive-delegation": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "boa-hierarchical-evaluation-cancellation": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run"
+ },
+ "numba-stencil-boundary-modes": {
+  "A": "jobs/check-run",
+  "B": "jobs/baseline-scope-fresh",
+  "C": "jobs/review-run"
+ },
+ "obsidian-linter-scoped-ignore-markers": {
+  "A": "jobs/review-run",
+  "B": "jobs/check-run",
+  "C": "jobs/baseline-scope-fresh"
+ },
+ "testem-bail-on-test-failure": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/review-run",
+  "C": "jobs/check-run"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/review-run",
+  "B": "jobs/check-run",
+  "C": "jobs/baseline-scope-fresh"
+ },
+ "eicrud-keyset-pagination-cursor": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/review-run",
+  "C": "jobs/check-run"
+ }
+}

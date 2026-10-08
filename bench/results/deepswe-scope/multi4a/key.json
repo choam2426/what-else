@@ -1,0 +1,86 @@
+{
+ "textual-kitty-key-phases": {
+  "A": "jobs/check-run",
+  "B": "jobs/review-run",
+  "C": "jobs/baseline-scope-fresh",
+  "D": "jobs/accept-run"
+ },
+ "kea-atomic-signal-selectors": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/review-run"
+ },
+ "koota-deferred-mutation-buffer": {
+  "A": "jobs/review-run",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "onedump-dump-encryption-pipeline": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run",
+  "D": "jobs/accept-run"
+ },
+ "kombu-virtual-queue-dead-lettering": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run",
+  "D": "jobs/accept-run"
+ },
+ "python-statemachine-state-data-scoping": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/review-run"
+ },
+ "claude-code-by-agents-recursive-delegation": {
+  "A": "jobs/review-run",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "updo-policy-alerting": {
+  "A": "jobs/review-run",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "boa-hierarchical-evaluation-cancellation": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run",
+  "D": "jobs/accept-run"
+ },
+ "numba-stencil-boundary-modes": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/accept-run",
+  "C": "jobs/check-run",
+  "D": "jobs/review-run"
+ },
+ "obsidian-linter-scoped-ignore-markers": {
+  "A": "jobs/accept-run",
+  "B": "jobs/review-run",
+  "C": "jobs/check-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "testem-bail-on-test-failure": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/review-run",
+  "D": "jobs/accept-run"
+ },
+ "gql-incremental-graphql-delivery": {
+  "A": "jobs/accept-run",
+  "B": "jobs/review-run",
+  "C": "jobs/check-run",
+  "D": "jobs/baseline-scope-fresh"
+ },
+ "eicrud-keyset-pagination-cursor": {
+  "A": "jobs/baseline-scope-fresh",
+  "B": "jobs/check-run",
+  "C": "jobs/accept-run",
+  "D": "jobs/review-run"
+ }
+}

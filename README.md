@@ -44,7 +44,7 @@ https://github.com/choam2426/what-else 이거 보고 우리 프로젝트에 맞�
 - **Jev는 넓은 순위 목록으로 쓸 때 좋았습니다.** 상위 10개에 필수 파일 46/53이 들어 BM25(27), grep(21)보다 나았습니다. 다만 레포 규칙이 있으면 더 보태는 것이 없었습니다.
 - **작은 모델 워커에게 탐색을 맡기는 구조**는 비용 약 3배, 시간 4~6배가 들었고, 정확도는 레포 규칙만 쓴 것 이하였습니다.
 
-근거는 약함에서 보통 사이입니다. 조건과 한계는 [실험 기록](docs/records/README.md)에 있습니다.
+근거는 약함에서 보통 사이입니다. 실험이 어떤 순서로 여기까지 왔는지, 조건과 한계는 [실험 기록의 "한눈에 보기"](docs/records/README.md#한눈에-보기-2026-10-08-기준)에 있습니다.
 
 ## 구성
 
@@ -53,8 +53,8 @@ https://github.com/choam2426/what-else 이거 보고 우리 프로젝트에 맞�
 | [`INSTALL.md`](INSTALL.md) | 에이전트가 처음 읽는 안내 (영어). 목표, 진행 과정, 답할 사람이 없을 때의 진행 방식 |
 | [`guide/`](guide/) | INSTALL.md가 가리키는 참고 문서 (영어). 진단, 방법 카드, 레포 규칙, 범위 찾기 방법, 위임, 검증 |
 | [`docs/direction.md`](docs/direction.md) | 합의한 방향, 원칙, 앞으로 할 일 |
-| [`docs/records/`](docs/records/README.md) | 실험 기록 색인, 적용 범위 지도, 원문 |
+| [`docs/records/`](docs/records/README.md) | 실험 기록. 한눈에 보기, 색인(R1~R17), 적용 범위 지도, 원문 |
 | [`docs/lessons.md`](docs/lessons.md) | 벤치 설계, 지시문, Jev, 환경에서 배운 것 |
 | [`docs/research/`](docs/research/) | Jev와 Agent Skill 리서치 노트 |
-| `bench/` | 실험 도구 (케이스 만들기, 실행, 채점, 판정) |
+| [`bench/`](bench/README.md) | 실험 도구와 재현 방법. 방법별 지침 원문(`bench/tools/`), 범위 판정 데이터(`bench/results/`) |
 | `src/jev/`, `test/` | 초기 Jev 클라이언트와 테스트 |

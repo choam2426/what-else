@@ -1,0 +1,32 @@
+{
+ "about": "Blind same-judge scope-miss judgings on the DeepSWE scope set (bench/deepswe-scope-set.txt). Each pack put one run of each arm per task side by side under random labels (key.json maps label -> run folder); two judges (X, Y) each judged every task, half 1 = first 7 tasks, half 2 = last 7. A verdict is 1 for a scope miss, 0 for none. Record: docs/records/baseline-deepswe.md.",
+ "arms": {
+  "baseline-scope-fresh": "plain, round 1",
+  "baseline-scope-fresh2": "plain, round 2",
+  "whatelse3-run": "repo rules (fresh what-else setup), round 1",
+  "whatelse4-run": "repo rules (fresh what-else setup), round 2",
+  "bm25-run": "BM25 tool + check line, round 1",
+  "bm25-run2": "BM25 tool + check line, round 2",
+  "combo-run": "repo rules + BM25, round 1",
+  "combo-run2": "repo rules + BM25, round 2",
+  "check-run": "check step only, round 1",
+  "check-run2": "check step only, round 2",
+  "jev-run": "check step + Jev offered, round 1",
+  "jev2-run": "check step + Jev with the reason stated, round 1",
+  "review-run": "check step + second look, round 1",
+  "accept-run": "check step + second look + acceptance rule, round 1",
+  "accept-run2": "check step + second look + acceptance rule, round 2"
+ },
+ "packs": {
+  "multi1": {"record": "R13", "round": 1},
+  "multi2": {"record": "R13", "round": 2},
+  "multi5a": {"record": "R14", "round": 1},
+  "multi5b": {"record": "R14", "round": 2},
+  "multi3j": {"record": "R15", "round": 1},
+  "multi3k": {"record": "R16", "round": 1},
+  "multi3r": {"record": "R17 (no acceptance rule)", "round": 1},
+  "multi4a": {"record": "R17", "round": 1, "extra": "over-*.json: count of changes beyond the request, any kind"},
+  "multi3a2": {"record": "R17", "round": 2, "extra": "un-*.json: count of changes beyond the request with no good reason"},
+  "focus5": {"record": "R16 focused", "kind": "focus", "about": "Per-place questions on the three tasks that used Jev; X.json and Y.json give covered/missed/not_needed per place and label."}
+ }
+}
