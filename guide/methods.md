@@ -6,6 +6,8 @@ What earlier experiments found about each approach. Use them to build the propos
 
 **Evidence strength:** *strong* means consistent across several repositories and repeated runs; *moderate* means repeated runs in one repository, or single runs agreeing across several; *weak* means one run in one repository, or a difference within run-to-run variance; *not measured* means nobody has tried it yet.
 
+**What the cards add up to.** Places were missed mostly because of how the agent worked, not because it could not find them. Cards that change the process (a check step, a second look by fresh eyes, a rule for accepting what that look reports) cut misses; cards that add search capability (keyword ranking, Jev, a worker that searches) added little or nothing on top of them. Long instructions did not help either; short ones placed where the agent goes wrong did.
+
 Each card carries the conditions needed to judge it. The full experiment records, with their design, variance and known flaws, are at https://github.com/choam2426/what-else/tree/main/docs/records for anyone who wants to look deeper.
 
 ---

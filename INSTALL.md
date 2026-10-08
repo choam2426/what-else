@@ -15,6 +15,10 @@ There is no single right setup. In the experiments behind this repository, the s
 - **What earlier experiments found**, as method cards in [guide/methods.md](guide/methods.md): what each approach is, where it helped, where it did not, what it cost, and under which conditions it was measured.
 - **A way to build, together with the user, the setup that fits their project**, described below.
 
+## What the experiments taught
+
+Agents missed places mostly because of how they worked, not because they could not find them. Many missed places were one search away and nobody looked; when a fresh reviewer pointed them out, the agent that made the change turned them down as outside the request. Tools that made searching stronger (keyword ranking, a fast classifier) added nothing on top of a short instruction to look again. What worked was process design: watch where the agent stops looking or judges wrongly, and put a step or a decision rule at that point, written into the instructions it always reads. Keep that in mind when you propose a setup and when you improve it.
+
 This file says what to do and why. How to build each part is yours to decide for the project and its environment: the harness, the operating system, the languages and the tools at hand.
 
 ## The process
@@ -47,6 +51,10 @@ Add rules or a search tool for the miss events the two steps still miss, and che
 
 ## Keep it improving
 
-The setup gets better with use. Each change leaves short notes: places that had to change and were missed, rules that misled, searches that wasted time. When notes accumulate, fold them into the rules and the tools. When the notes show a kind of miss the current setup keeps missing, propose another option from the method cards to the user.
+The setup gets better with use, by the same means that made it work: watching where the agent stops or judges wrongly, and putting a step or a decision rule there.
+
+- Each change leaves short notes: places that had to change and were missed, what the second look reported and what the agent did with it, rules that misled.
+- When notes accumulate, read them for the point where things went wrong. A place nobody opened calls for a step or a rule that points there; a place that was reported and turned down calls for a clearer rule on what to accept; a rule that misled calls for fixing that rule.
+- Fold the fix into the instructions the agent always reads, and keep each one short. When the notes show a kind of miss the current setup keeps missing, propose another option from the method cards to the user.
 
 The setup keeps working without this repository, so copy into the project whatever it needs from here, such as the rules format or the scope method.

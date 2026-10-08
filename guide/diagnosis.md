@@ -31,6 +31,7 @@ Miss events also serve twice more: they point to the rules to write ([rules.md](
 - **What changes together.** Files that many commits touch together, per kind of change: a new public API, a behavior change, a bug fix in a released version, a deprecation, dropped support. Strong, regular conventions are what rules capture best.
 - **How far names reach.** For the miss events found, whether the missed place shares a name, string, message or version number with the change. Places that share one are found by direct search once the agent knows to look; places that share none need a ranked search.
 - **Size and shape.** Languages, a monorepo, generated code, boundaries between languages or services, how much of the repository fits in one agent's context.
+- **Where the agent goes wrong.** For a few miss events, or a few plain runs, see at which point the place was lost: nobody opened it, it was opened and judged unneeded, or it was found and left because the request did not name it. Each calls for a different step or rule, and this is what the setup has to change.
 - **What is already in place.** Existing agent instructions and conventions files, language servers, code search, indexes. An existing, well-tuned harness may already cover most of this.
 - **Constraints.** Whether code may leave the machine, whether secrets live in the tree, and what spending and waiting per change is acceptable. These go to the user in the agreement step.
 

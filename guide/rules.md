@@ -1,6 +1,6 @@
 # Repository rules
 
-Repository rules say what the project changes together. They carry knowledge the code does not show and a stronger model does not bring: the project's own conventions.
+Repository rules say what the project changes together. They carry knowledge the code does not show and a stronger model does not bring: the project's own conventions. They work by directing attention, telling the agent where to look for this kind of change, rather than by searching for it.
 
 ## What the rules answer
 
